@@ -1,7 +1,7 @@
-import { logTable } from "./log.js";
-import { usersTable } from "./users.js";
+import { logTable } from "./log";
+import { usersTable } from "./users";
 
 export const schema = {
-    users: usersTable,
-    log: logTable,
-}
+  users: usersTable,
+  log: logTable,
+};

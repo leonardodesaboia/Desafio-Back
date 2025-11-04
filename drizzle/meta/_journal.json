@@ -15,6 +15,13 @@
       "when": 1761671596893,
       "tag": "0001_neat_sandman",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762199775069,
+      "tag": "0002_cool_fabian_cortez",
+      "breakpoints": true
     }
   ]
 }
