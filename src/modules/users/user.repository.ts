@@ -60,8 +60,6 @@ export class UserRepo {
       .orderBy(desc(count(schema.log.link_owner_id)))
       .limit(5);
 
-    console.log(result);
-
     if (!result) {
       throw new Error("Users not found");
     }
@@ -83,20 +81,15 @@ export class UserRepo {
   }
 
   async addLog(referred_link: string, link_owner_id: string) {
-
-    const values = { 
-      referred_link, 
-      link_owner_id 
+    const values = {
+      referred_link,
+      link_owner_id
     };
-    
-    console.log('Valores a serem inseridos:', values);
-    
+
     const result = await db
       .insert(schema.log)
       .values(values)
       .returning();
-
-    console.log('Resultado da inserção:', result);
 
     if (!result) {
       throw new Error("Log not created");
