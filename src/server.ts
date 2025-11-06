@@ -1,4 +1,3 @@
-// ESM
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import jwt from "@fastify/jwt";
@@ -9,22 +8,19 @@ const fastify = Fastify({
   logger: true,
 });
 
-// ✅ Registra JWT
 await fastify.register(jwt, {
   secret: process.env.JWT_SECRET || "fallback-secret-for-development",
   sign: {
-    expiresIn: "7d"
+    expiresIn: process.env.JWT_EXPIRES_IN || "7d"
   }
 });
 
-// ✅ Libera CORS para todo mundo
 await fastify.register(cors, {
-  origin: "*", // permite qualquer origem
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 });
 
-// Global error handler
 fastify.setErrorHandler((error, request, reply) => {
   fastify.log.error(error);
 
@@ -35,18 +31,19 @@ fastify.setErrorHandler((error, request, reply) => {
   });
 });
 
-// Rotas
-fastify.register(userRoutes, { prefix: "/users" });
-
 fastify.get("/health-check", (request, reply) => {
   reply.send({ status: "OK" });
 });
 
-// Inicialização
+fastify.register(userRoutes, { prefix: "/users" });
+
 async function main() {
   try {
-    await fastify.listen({ port: 3000 });
-    console.log(`Server is now listening on http://localhost:3000`);
+    await fastify.listen({
+      port: Number(process.env.PORT) || 3000,
+      host: '0.0.0.0'
+    });
+    console.log(`Server is now listening on http://0.0.0.0:${process.env.PORT || 3000}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
