@@ -8,6 +8,6 @@ export const usersTable = pgTable("users", {
   email: varchar().notNull().unique(),
   password: varchar().notNull(),
   role: userRoleEnum().notNull().default("user"),
-  link: uuid().notNull().defaultRandom(),
+  link: uuid().notNull().defaultRandom().unique(),
   created_at: timestamp("created_at").defaultNow()
 });

@@ -49,11 +49,11 @@ class UserController {
                 totalPoints
               );
             } catch (error) {
-              // Referral log error silently handled
+              console.log("Erro no email")
             }
           }
         } catch (error) {
-          // Referral log error silently handled
+          console.log("Erro ao buscar usuário por link")
         }
       }
 
